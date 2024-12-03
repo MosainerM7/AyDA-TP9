@@ -1,0 +1,113 @@
+Alumno: Mosainer Martín
+Práctico: AyDA TP-9
+
+El problema de quickselect consiste en encontrar el k-ésimo elemento más pequeño (o más grande) 
+en un arreglo sin necesidad de ordenar todo el arreglo completo.
+Quickselect utiliza la idea del algoritmo quicksort, pero solo trabaja en la partición relevante 
+del arreglo. Usaremos disminución por tamaño variable, 
+donde el tamaño del problema se reduce en función de las particiones.
+
+
+
+Pseudocódigo:
+
+QUICKSELECT(arr, k):
+    1. Iniciar low = 0, high = tamaño de arr - 1
+    2. Mientras low <= high:
+        3. pivotIndex = PARTITION(arr, low, high)
+        4. Si pivotIndex == k:
+            5. Retornar arr[pivotIndex]  // Encontramos el k-ésimo elemento
+        6. Si pivotIndex < k:
+            7. low = pivotIndex + 1     // Reducir el problema a la derecha
+        8. Si pivotIndex > k:
+            9. high = pivotIndex - 1    // Reducir el problema a la izquierda
+
+PARTITION(arr, low, high):
+    1. pivot = arr[high]                // Elegir el último elemento como pivote
+    2. i = low - 1                      // Índice del menor elemento
+    3. Para j desde low hasta high - 1:
+        4. Si arr[j] <= pivot:
+            5. i = i + 1
+            6. Intercambiar arr[i] con arr[j]
+    7. Intercambiar arr[i + 1] con arr[high]
+    8. Retornar i + 1                   // Retornar el índice del pivote
+
+
+
+
+    Disminución por tamaño variable:
+
+    La clave del enfoque es reducir el tamaño del problema después de cada partición. 
+    Dependiendo de la posición del pivote (pivotIndex):
+    Si el pivote está en la posición deseada (k), devolvemos el valor directamente.
+    Si el pivote está a la izquierda de 
+    k, descartamos la parte izquierda del arreglo y ajustamos 
+    low.
+    Si el pivote está a la derecha de 
+    k, descartamos la parte derecha del arreglo y ajustamos 
+    high.
+
+
+    Importante:
+    Partición (PARTITION):
+
+    La función PARTITION organiza el arreglo de manera que:
+    Los elementos menores o iguales al pivote están a la izquierda.
+    Los elementos mayores al pivote están a la derecha.
+
+    El pivote termina en su posición final.
+
+No recursividad:
+El uso de un bucle while permite manejar la partición del arreglo sin recurrencia.
+Esto reduce la necesidad de gestionar un stack adicional.
+
+
+Ejemplo de ejecución
+Entrada: arr=[3,2,1,5,4] k = 2
+
+queremos el tercer elemento más pequeño, índice 2 en orden 0-indexado.
+
+Paso a paso:
+
+Inicializamos:
+
+low=0,high=4
+
+Llamamos a PARTITION:
+
+Pivote: 4.
+
+Reorganizamos:[3,2,1,4,5]
+
+Pivote en índice 3.
+
+Comparación de pivotIndex con k:
+
+pivotIndex=3>k=2, reducimos el problema a la izquierda:
+
+high=2
+
+Llamamos a PARTITION nuevamente:
+
+Pivote: 1.
+
+Reorganizamos: [1,2,3,4,5]
+Pivote en índice 0.
+
+Comparación de pivotIndex con k:
+
+pivotIndex=0<k=2, reducimos el problema a la derecha:
+
+low=1
+
+Llamamos a PARTITION por última vez:
+
+Pivote: 3.
+No se reorganiza: [1,2,3,4,5]
+Pivote en índice 2.
+
+pivotIndex=k=2, retornamos 3.
+
+Salida: 3.
+
+Así sería la ejecución del pseudocódigo.
