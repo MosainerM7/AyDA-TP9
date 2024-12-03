@@ -1,12 +1,13 @@
 Alumno: Mosainer Martín
 Práctico: AyDA TP-9
 
+// Enunciado: Escribir el pseudocódigo para una implementación no recursiva de quickselect.
+
 El problema de quickselect consiste en encontrar el k-ésimo elemento más pequeño (o más grande) 
 en un arreglo sin necesidad de ordenar todo el arreglo completo.
 Quickselect utiliza la idea del algoritmo quicksort, pero solo trabaja en la partición relevante 
 del arreglo. Usaremos disminución por tamaño variable, 
 donde el tamaño del problema se reduce en función de las particiones.
-
 
 
 Pseudocódigo:
@@ -39,10 +40,12 @@ PARTITION(arr, low, high):
 
     La clave del enfoque es reducir el tamaño del problema después de cada partición. 
     Dependiendo de la posición del pivote (pivotIndex):
+
     Si el pivote está en la posición deseada (k), devolvemos el valor directamente.
     Si el pivote está a la izquierda de 
     k, descartamos la parte izquierda del arreglo y ajustamos 
     low.
+
     Si el pivote está a la derecha de 
     k, descartamos la parte derecha del arreglo y ajustamos 
     high.
@@ -57,19 +60,20 @@ PARTITION(arr, low, high):
 
     El pivote termina en su posición final.
 
-No recursividad:
+//importante: No recursividad:
 El uso de un bucle while permite manejar la partición del arreglo sin recurrencia.
 Esto reduce la necesidad de gestionar un stack adicional.
 
 
-Ejemplo de ejecución
+//Ejemplo de ejecución:
+
 Entrada: arr=[3,2,1,5,4] k = 2
 
 queremos el tercer elemento más pequeño, índice 2 en orden 0-indexado.
 
 Paso a paso:
 
-Inicializamos:
+//a. Inicializamos:
 
 low=0,high=4
 
@@ -77,33 +81,36 @@ Llamamos a PARTITION:
 
 Pivote: 4.
 
-Reorganizamos:[3,2,1,4,5]
+//b. Reorganizamos: [3,2,1,4,5]
 
 Pivote en índice 3.
 
 Comparación de pivotIndex con k:
 
-pivotIndex=3>k=2, reducimos el problema a la izquierda:
+pivotIndex=3>k=2, //reducimos el problema a la izquierda:
 
 high=2
 
-Llamamos a PARTITION nuevamente:
+//c. Llamamos a PARTITION nuevamente:
 
 Pivote: 1.
 
 Reorganizamos: [1,2,3,4,5]
+
 Pivote en índice 0.
 
-Comparación de pivotIndex con k:
+//d. Comparación de pivotIndex con k:
 
-pivotIndex=0<k=2, reducimos el problema a la derecha:
+pivotIndex=0<k=2, //reducimos el problema a la derecha:
 
 low=1
 
-Llamamos a PARTITION por última vez:
+//e. Llamamos a PARTITION por última vez:
 
 Pivote: 3.
+
 No se reorganiza: [1,2,3,4,5]
+
 Pivote en índice 2.
 
 pivotIndex=k=2, retornamos 3.
